@@ -69,6 +69,7 @@ function Slider() {
   const [stripH, setStripH] = useState(0);
   const [noTr, setNoTr] = useState(false);
   const [ready, setReady] = useState(false);
+  const [mobile, setMobile] = useState(false);
 
   const go = useCallback((dir) => {
     const N = SLIDES.length;
@@ -104,6 +105,9 @@ function Slider() {
   useEffect(() => {
     const el = stripRef.current;
     if (!el) return;
+    const mq = window.matchMedia("(max-width: 900px)");
+    const applyMobile = () => setMobile(mq.matches);
+    mq.addEventListener?.("change", applyMobile);
     const update = () => {
       setStripW(el.clientWidth);
       setStripH(el.clientHeight);
@@ -113,11 +117,13 @@ function Slider() {
     const ro = new ResizeObserver(update);
     ro.observe(el);
     raf1 = requestAnimationFrame(() => {
+      applyMobile();
       raf2 = requestAnimationFrame(() => setReady(true));
     });
     startAuto();
     return () => {
       ro.disconnect();
+      mq.removeEventListener?.("change", applyMobile);
       cancelAnimationFrame(raf1);
       cancelAnimationFrame(raf2);
       clearInterval(autoTimer.current);
@@ -125,8 +131,8 @@ function Slider() {
     };
   }, [startAuto]);
 
-  const slideW = Math.round(stripH * (2000 / 1333));
-  const peek = Math.max(0, Math.round((stripW - slideW) / 2));
+  const slideW = mobile ? stripW : Math.round(stripH * (2000 / 1333));
+  const peek = mobile ? 0 : Math.max(0, Math.round((stripW - slideW) / 2));
 
   return (
     <div

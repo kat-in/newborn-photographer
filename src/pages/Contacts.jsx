@@ -2,7 +2,7 @@ import hero from "../data/images/007.jpg";
 
 export default function Contacts() {
   return (
-    <main className="page-section">
+    <main className="page-section contacts">
       <img className="contacts-hero reveal" src={hero} alt="Фотограф новорожденных" />
       <p className="contacts-title reveal">Спасибо за проявленный интерес к моему творчеству!</p>
       <p className="reveal">Свяжитесь со мной удобным для вас способом:</p>
