@@ -1,5 +1,7 @@
 export default function NotFound(){
     return (
-        'Страница не найдена'
+        <main className="page-section">
+            <p className="reveal">Страница не найдена</p>
+        </main>
     )
 }
