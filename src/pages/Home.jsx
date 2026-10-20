@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
 import slide01 from "../assets/home/slide01.webp";
 import slide02 from "../assets/home/slide02.webp";
 import slide03 from "../assets/home/slide03.webp";
@@ -284,7 +283,7 @@ function Comparer() {
     <div className="comparison" ref={ref} onPointerDown={onDown} style={{ "--pos": `${pos}%` }}>
       <img
         src={after}
-        alt="Фотография новорожденного после авторской обработки"
+        alt="Фотография после обработки"
         width={manifest["home/after.webp"]?.w}
         height={manifest["home/after.webp"]?.h}
         loading="lazy"
@@ -293,7 +292,7 @@ function Comparer() {
       <div className="before">
         <img
           src={before}
-          alt="Фотография новорожденного до авторской обработки"
+          alt="Фотография до обработки"
           width={manifest["home/before.webp"]?.w}
           height={manifest["home/before.webp"]?.h}
           loading="lazy"
@@ -321,14 +320,14 @@ function Questions() {
     <div className="questions">
       {QUESTIONS.map((q, i) => (
         <div className={`accord${open.has(i) ? " open" : ""}`} key={q.t}>
-          <h3 className="a-title" onClick={() => toggle(i)}>
+          <h4 className="a-title" onClick={() => toggle(i)}>
             {q.t}
             <span className="a-plus">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
               </svg>
             </span>
-          </h3>
+          </h4>
           <div className="a-answer">
             <div className="a-inner">{q.a}</div>
           </div>
@@ -359,7 +358,7 @@ function VkVideo() {
       <div className="overlay" onClick={() => setPlay(true)}>
         <img
           src={videoPoster}
-          alt="Видео о фотокнигах для новорожденных"
+          alt="Видео о фотокнигах"
           width={manifest["home/video-poster.webp"]?.w}
           height={manifest["home/video-poster.webp"]?.h}
           loading="lazy"
@@ -406,16 +405,15 @@ export default function Home() {
       <div className="home-box">
         <div className="row">
           <div className="col-6">
-            <h2 className="sec-title"><b>Привет, я&nbsp;Екатерина&nbsp;</b></h2>
-            <h2 className="sec-title">&nbsp;— фотограф новорожденных в&nbsp;Краснодаре.</h2>
+            <h3><b>Привет, я&nbsp;Екатерина&nbsp;</b></h3>
+            <h3>&nbsp;— фотограф новорожденных в&nbsp;Краснодаре.</h3>
             <p className="home-lead">Если вы&nbsp;оказались на&nbsp;моем сайте, наверняка вы&nbsp;хотите сохранить память о&nbsp;первых днях жизни крошечного человечка. Фотосессия newborn&nbsp;— отличный подарок на&nbsp;рождение ребенка.</p>
-            <p>Посмотрите <Link to="/gallery/">галерею моих работ</Link> и&nbsp;узнайте <Link to="/pricing/">стоимость фотосессии</Link> новорожденного в&nbsp;Краснодаре.</p>
           </div>
           <div className="col-6">
             <div className="pic -round">
               <img
                 src={intro}
-                alt="Екатерина Крюкова — фотограф новорожденных в Краснодаре"
+                alt="Фотограф новорожденных Крюкова Екатерина"
                 width={manifest["home/intro.webp"]?.w}
                 height={manifest["home/intro.webp"]?.h}
                 loading="lazy"
@@ -432,7 +430,7 @@ export default function Home() {
             <div className="pic">
               <img
                 src={work}
-                alt="Съемка новорожденного в специализированной студии фотографа в Краснодаре"
+                alt="Частный роддом Краснодар"
                 width={manifest["home/work.webp"]?.w}
                 height={manifest["home/work.webp"]?.h}
                 loading="lazy"
@@ -441,7 +439,7 @@ export default function Home() {
             </div>
           </div>
           <div className="col-6">
-            <h2 className="sec-title">Как я&nbsp;работаю</h2>
+            <h3>Как я&nbsp;работаю</h3>
             <p>Все что вам понадобится для фотосессии&nbsp;новорожденного&nbsp;— это малыш и&nbsp;соска.&nbsp;</p>
             <h3>ПРЕДВАРИТЕЛЬНАЯ ЗАПИСЬ:</h3>
             <ul>
@@ -465,7 +463,7 @@ export default function Home() {
       <div className="home-box">
         <div className="row">
           <div className="col-6">
-            <h2 className="sec-title">Как я&nbsp;отдаю фотографии</h2>
+            <h3>Как я&nbsp;отдаю фотографии</h3>
             <p>&nbsp;</p>
             <ul>
               <li>Через неделю после съемки я&nbsp;пришлю ссылку со&nbsp;всеми удачными кадрами в&nbsp;минимальной цветокоррекции. Из&nbsp;этих кадров вы&nbsp;можете&nbsp;<b>самостоятельно выбрать фотографии&nbsp;</b>для авторской обработки.&nbsp;</li>
@@ -480,7 +478,7 @@ export default function Home() {
             <div className="pic">
               <img
                 src={deliver}
-                alt="Фотокнига с фотографиями новорожденного — результат фотосессии"
+                alt="Фотосессия новорожденного фотокнига"
                 width={manifest["home/deliver.webp"]?.w}
                 height={manifest["home/deliver.webp"]?.h}
                 loading="lazy"
@@ -497,7 +495,7 @@ export default function Home() {
             <Comparer />
           </div>
           <div className="col-4">
-            <h2 className="sec-title">Детальная обработка</h2>
+            <h3>Детальная обработка</h3>
             <p>У&nbsp;новорожденных малышей редко бывает идеальная кожа.</p>
             <p>Покраснения, шелушинки, царапинки, желтушка, даже зеленый пупок&nbsp;— все это часто встречается, но&nbsp;совершенно не&nbsp;мешает провести съемку.&nbsp;</p>
             <p>После обработки кожа малыша будет ровной и&nbsp;гладкой, все дефекты будут отретушированы.</p>
@@ -542,28 +540,6 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="home-box">
-        <div className="row -top">
-          <div className="col-8 col-lg-8-offset-2">
-            <h2>Запись на фотосессию новорожденного в Краснодаре</h2>
-            <p>
-              Я&nbsp;занимаюсь фотосессиями новорожденных (newborn) в&nbsp;Краснодаре и&nbsp;Краснодарском крае больше 10&nbsp;лет.
-              Съемки проходят в&nbsp;моей специализированной студии для новорожденных: с&nbsp;отдельной зоной ухода,
-              комфортной температурой и&nbsp;профессиональным светом. Оптимальный возраст малыша для съемки&nbsp;— 5–14&nbsp;дней.
-            </p>
-            <p>
-              В&nbsp;пакет входят фотосессия, профессиональная ретушь и&nbsp;печать фотокниги. Узнать актуальные цены
-              можно на&nbsp;странице <Link to="/pricing/">пакетов услуг</Link>, а&nbsp;посмотреть примеры работ&nbsp;— в&nbsp;<Link to="/gallery/">галерее</Link>.
-              Мои отзывы&nbsp;— на&nbsp;странице <Link to="/reviews/">отзывов клиентов</Link>.
-            </p>
-            <p>
-              <Link to="/contacts/" className="home-cta">
-                Записаться на фотосессию
-              </Link>
-            </p>
-          </div>
-        </div>
-      </div>
     </main>
   );
 }

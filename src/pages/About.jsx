@@ -18,7 +18,7 @@ export default function About() {
           <div className="about-col -half">
             <img
               src={intro}
-              alt="Екатерина Крюкова — фотограф новорожденных в Краснодаре"
+              alt="Фотограф новорожденных Екатерина Крюкова"
               width={manifest["about/intro.webp"]?.w}
               height={manifest["about/intro.webp"]?.h}
               loading="lazy"
@@ -33,7 +33,7 @@ export default function About() {
           <div className="about-col -third">
             <img
               src={education}
-              alt="Диплом фотографа новорожденных после авторского курса обучения"
+              alt="Диплом фотографа новорожденных после курса обучения"
               width={manifest["about/education.webp"]?.w}
               height={manifest["about/education.webp"]?.h}
               loading="lazy"

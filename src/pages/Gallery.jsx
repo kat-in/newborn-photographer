@@ -5,8 +5,7 @@ import { gallery, galleryImages, gallerySize, galleryThumbs } from "../gallery.j
 const images = galleryImages;
 const thumbOf = (i) => galleryThumbs[i];
 
-const ALT = (i) =>
-  `Фотосессия новорожденного в студии Екатерины Крюковой в Краснодаре — работа ${i + 1}`;
+const ALT = (i) => `Фото ${i + 1}`;
 
 export default function Gallery() {
   const [selected, setSelected] = useState(null);
@@ -35,8 +34,8 @@ export default function Gallery() {
   return (
     <main className="page-section">
       <h1 className="sr-only">Галерея работ — фотосессии новорожденных в Краснодаре</h1>
-      <div className="page-intro reveal">
-        <h2>Галерея фотосессий новорожденных</h2>
+      <div className="gallery-intro reveal">
+        <h2 className="sr-only">Галерея фотосессий новорожденных</h2>
         <p>
           В&nbsp;галерее&nbsp;— примеры моих фотосессий новорожденных из&nbsp;студии в&nbsp;Краснодаре: позы,
           авторская обработка, фотокниги. Нажмите на&nbsp;фотографию, чтобы рассмотреть кадр крупнее.

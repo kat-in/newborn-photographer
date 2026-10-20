@@ -305,50 +305,25 @@ code {
   flex-grow: 1;
 }
 
-.page-intro,
-.contacts-text,
-.reviews-intro {
+.contacts-text {
   max-width: 860px;
   margin: 0 auto 40px;
-  text-align: left;
   font-size: 15px;
   line-height: 1.6;
 }
 
-.page-intro h2,
-.contacts-text h2,
-.reviews-intro h2 {
-  font-family: var(--heading);
-  font-weight: 400;
-  color: #1e1e1e;
-  letter-spacing: 0.02em;
-  line-height: 1.15;
-  font-size: 30px;
-  margin: 0 0 0.5em;
-}
-
-.page-intro p,
-.contacts-text p,
-.reviews-intro p {
+.contacts-text p {
   margin: 0 0 1em;
 }
 
-.page-intro a,
-.contacts-text a,
-.reviews-intro a {
+.contacts-text a {
   color: inherit;
   text-decoration-color: rgba(30, 30, 30, 0.35);
   text-underline-offset: 3px;
 }
 
-.page-intro a:hover,
-.contacts-text a:hover,
-.reviews-intro a:hover {
+.contacts-text a:hover {
   text-decoration-color: currentColor;
-}
-
-.contacts-text {
-  margin-bottom: 20px;
 }
 
 .contacts {
@@ -364,6 +339,28 @@ code {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.reviews-intro {
+  max-width: 860px;
+  margin: 0 auto 40px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.reviews-intro p {
+  margin: 0 0 1em;
+}
+
+.reviews-intro a {
+  color: inherit;
+  text-decoration-color: rgba(30, 30, 30, 0.35);
+  text-underline-offset: 3px;
+}
+
+.reviews-intro a:hover {
+  text-decoration-color: currentColor;
 }
 
 .reviews {
@@ -561,6 +558,7 @@ code {
 .contacts-hero {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 8px;
@@ -629,6 +627,7 @@ code {
 .pricing-hero {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 8px;
@@ -653,6 +652,7 @@ code {
 .pricing-card-img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 8px;
@@ -694,6 +694,28 @@ code {
 .pricing-note {
   margin: 8px 0;
   font-weight: 700;
+}
+
+.gallery-intro {
+  max-width: 860px;
+  margin: 0 auto 24px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.gallery-intro p {
+  margin: 0 0 1em;
+}
+
+.gallery-intro a {
+  color: inherit;
+  text-decoration-color: rgba(30, 30, 30, 0.35);
+  text-underline-offset: 3px;
+}
+
+.gallery-intro a:hover {
+  text-decoration-color: currentColor;
 }
 
 .gallery-grid {
@@ -840,10 +862,6 @@ code {
   margin: 0 0 0.5em;
 }
 
-.home h2.sec-title {
-  font-size: 24px;
-}
-
 .home h3 {
   font-size: 24px;
   margin: 0 0 0.5em;
@@ -855,37 +873,8 @@ code {
 }
 
 .home h3 b,
-.home h1 b,
-.home h2.sec-title b {
+.home h1 b {
   font-weight: 400;
-}
-
-.home a {
-  color: inherit;
-  text-decoration-color: rgba(30, 30, 30, 0.35);
-  text-underline-offset: 3px;
-}
-
-.home a:hover {
-  text-decoration-color: currentColor;
-}
-
-.home-cta {
-  display: inline-block;
-  margin-top: 0.5em;
-  padding: 12px 26px;
-  border: 1px solid #1e1e1e;
-  border-radius: 999px;
-  font-family: var(--heading);
-  font-size: 20px;
-  line-height: 1.2;
-  text-decoration: none !important;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.home-cta:hover {
-  background: #1e1e1e;
-  color: #f5f0eb;
 }
 
 .home p {
@@ -1107,7 +1096,6 @@ code {
   padding: 1em 0;
   cursor: pointer;
   user-select: none;
-  font-size: 20px;
 }
 
 .accord:first-child .a-title {

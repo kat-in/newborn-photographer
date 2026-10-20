@@ -9,9 +9,7 @@ export default function Logo() {
                 <img
                     className="logo_img"
                     src="/logo.png"
-                    alt="Екатерина Крюкова — фотограф новорожденных, Краснодар"
-                    width="724"
-                    height="347"
+                    alt="kryukovaphoto.ru"
                     fetchPriority="high"
                     decoding="async"
                 />

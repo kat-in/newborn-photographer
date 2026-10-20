@@ -46,7 +46,7 @@ export default function Reviews() {
     <main className="reviews">
       <h1 className="sr-only">Отзывы клиентов о фотосессии новорожденных</h1>
       <div className="reviews-intro reveal">
-        <h2>Отзывы о фотосессии новорожденного</h2>
+        <h2 className="sr-only">Отзывы о фотосессии новорожденного</h2>
         <p>
           Ниже&nbsp;— отзывы родителей, которые доверили мне съемку своих малышей в&nbsp;Краснодаре.
           Посмотрите <Link to="/gallery/">примеры работ</Link> и&nbsp;<Link to="/pricing/">пакеты услуг</Link>,

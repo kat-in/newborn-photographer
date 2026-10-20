@@ -10,7 +10,7 @@ export default function Pricing() {
             <img
                 className="pricing-hero reveal"
                 src={hero}
-                alt="Фотосессия новорожденного — пример работы из галереи"
+                alt="Стоимость фотосессии новорожденных"
                 width={manifest["gallery/113.webp"]?.w}
                 height={manifest["gallery/113.webp"]?.h}
                 fetchPriority="high"
@@ -22,7 +22,7 @@ export default function Pricing() {
                     <img
                         className="pricing-card-img"
                         src={malysh}
-                        alt="Пакет Малыш — фотосессия новорожденного"
+                        alt="Пакет Малыш"
                         width={manifest["gallery/114.webp"]?.w}
                         height={manifest["gallery/114.webp"]?.h}
                         loading="lazy"
@@ -44,7 +44,7 @@ export default function Pricing() {
                     <img
                         className="pricing-card-img"
                         src={standart}
-                        alt="Пакет Стандарт — фотосессия новорожденного"
+                        alt="Пакет Стандарт"
                         width={manifest["gallery/115.webp"]?.w}
                         height={manifest["gallery/115.webp"]?.h}
                         loading="lazy"
@@ -71,7 +71,7 @@ export default function Pricing() {
                     <img
                         className="pricing-card-img"
                         src={komfort}
-                        alt="Пакет Комфорт — фотосессия новорожденного"
+                        alt="Пакет Комфорт"
                         width={manifest["gallery/116.webp"]?.w}
                         height={manifest["gallery/116.webp"]?.h}
                         loading="lazy"

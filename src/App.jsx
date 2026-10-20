@@ -39,13 +39,16 @@ function App() {
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            obs.unobserve(entry.target);
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const tall = el.offsetHeight > window.innerHeight * 1.5;
+          if (entry.intersectionRatio >= 0.12 || tall) {
+            el.classList.add("is-visible");
+            obs.unobserve(el);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: [0, 0.12] }
     );
     targets.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
