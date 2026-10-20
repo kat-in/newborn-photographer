@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router";
+import { gallery, galleryImages, gallerySize, galleryThumbs } from "../gallery.js";
 
-const images = Object.entries(
-  import.meta.glob("/src/data/images/*.{jpg,JPG}", {
-    eager: true,
-    import: "default",
-  })
-)
-  .map(([path, url]) => ({ url, num: parseInt(path.match(/(\d+)\./)[1]) }))
-  .sort((a, b) => a.num - b.num)
-  .map((i) => i.url);
+const images = galleryImages;
+const thumbOf = (i) => galleryThumbs[i];
+
+const ALT = (i) =>
+  `Фотосессия новорожденного в студии Екатерины Крюковой в Краснодаре — работа ${i + 1}`;
 
 export default function Gallery() {
   const [selected, setSelected] = useState(null);
@@ -37,13 +35,27 @@ export default function Gallery() {
   return (
     <main className="page-section">
       <h1 className="sr-only">Галерея работ — фотосессии новорожденных в Краснодаре</h1>
+      <div className="page-intro reveal">
+        <h2>Галерея фотосессий новорожденных</h2>
+        <p>
+          В&nbsp;галерее&nbsp;— примеры моих фотосессий новорожденных из&nbsp;студии в&nbsp;Краснодаре: позы,
+          авторская обработка, фотокниги. Нажмите на&nbsp;фотографию, чтобы рассмотреть кадр крупнее.
+        </p>
+        <p>
+          Хотите такую&nbsp;же съемку? Посмотрите <Link to="/pricing/">пакеты услуг</Link>
+          и&nbsp;запишитесь на&nbsp;фотосессию через <Link to="/contacts/">страницу контактов</Link>.
+        </p>
+      </div>
       <div className="gallery-grid reveal">
         {images.map((src, i) => (
           <img
             key={src}
-            src={src}
-            alt={`Фото ${i + 1}`}
+            src={thumbOf(i)}
+            alt={ALT(i)}
+            width={gallerySize(gallery[i].id, "thumb")?.w}
+            height={gallerySize(gallery[i].id, "thumb")?.h}
             loading="lazy"
+            decoding="async"
             onClick={() => setSelected(i)}
           />
         ))}
@@ -76,7 +88,10 @@ export default function Gallery() {
             <img
               className="lightbox-img"
               src={images[selected]}
-              alt={`Фото ${selected + 1}`}
+              alt={ALT(selected)}
+              width={gallerySize(gallery[selected].id, "full")?.w}
+              height={gallerySize(gallery[selected].id, "full")?.h}
+              decoding="async"
               onClick={(e) => e.stopPropagation()}
             />
             <button

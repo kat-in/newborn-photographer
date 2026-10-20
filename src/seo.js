@@ -1,40 +1,25 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
+import { SEO_META, absolute } from "./seo-meta.mjs";
+import { buildSchema } from "./seo-schema.mjs";
+import { galleryThumbs } from "./gallery.js";
+import reviews from "./data/reviews/reviews.json";
+import manifest from "./assets/manifest.json";
 
-const SITE = "https://kryukovaphoto.ru.website.yandexcloud.net";
-const SUFFIX = "Фотограф новорожденных в Краснодаре — Екатерина Крюкова";
+import ogHome from "./assets/home/slide01.webp";
+import ogGallery from "./assets/gallery/001.webp";
+import ogAbout from "./assets/about/intro.webp";
+import ogPricing from "./assets/gallery/113.webp";
+import ogReviews from "./assets/gallery/007.webp";
+import ogContacts from "./assets/gallery/007.webp";
 
-export const SEO_META = {
-  "/": {
-    title: "Фотограф новорожденных в Краснодаре — Екатерина Крюкова",
-    description:
-      "Фотосессии newborn в специализированной студии в Краснодаре. Фотокниги, авторская обработка. Съемка малышей 5–14 дней, запись по ПДР.",
-  },
-  "/gallery": {
-    title: `Галерея работ — ${SUFFIX}`,
-    description:
-      "Фотографии новорожденных из моего портфолио. Примеры работ в студии в Краснодаре: позы, обработка, фотокниги.",
-  },
-  "/about": {
-    title: `Обо мне — ${SUFFIX}`,
-    description:
-      "Екатерина Крюкова — фотограф новорожденных с опытом более 10 лет. Обучение ньюборн-съемке, диплом, топ фото конкурса 35awards.",
-  },
-  "/pricing": {
-    title: `Стоимость фотосессии новорожденных — ${SUFFIX}`,
-    description:
-      "Цены на фотосессию newborn в Краснодаре: пакеты Малыш, Стандарт, Комфорт от 17 000 руб. Фотокниги и авторская обработка включены.",
-  },
-  "/reviews": {
-    title: `Отзывы — ${SUFFIX}`,
-    description:
-      "Отзывы родителей о фотосессиях новорожденных. Что говорят клиенты о съемке с Екатериной Крюковой в Краснодаре.",
-  },
-  "/contacts": {
-    title: `Контакты — ${SUFFIX}`,
-    description:
-      "Свяжитесь со мной для записи на фотосессию новорожденного в Краснодаре. Телефон, Telegram и Max для быстрой связи.",
-  },
+const OG_IMAGES = {
+  "/": { url: ogHome, key: "home/slide01.webp" },
+  "/gallery": { url: ogGallery, key: "gallery/001.webp" },
+  "/about": { url: ogAbout, key: "about/intro.webp" },
+  "/pricing": { url: ogPricing, key: "gallery/113.webp" },
+  "/reviews": { url: ogReviews, key: "gallery/007.webp" },
+  "/contacts": { url: ogContacts, key: "gallery/007.webp" },
 };
 
 function setMeta(attr, key, content) {
@@ -58,20 +43,52 @@ function setCanonical(href) {
   el.setAttribute("href", href);
 }
 
+function setSchema(data) {
+  let el = document.getElementById("seo-schema");
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = "seo-schema";
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+}
+
 export function useSEO() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const meta = SEO_META[pathname] || SEO_META["/"];
-    const url = `${SITE}${pathname === "/" ? "/" : pathname}`;
+    const key = pathname.replace(/\/$/, "") || "/";
+    const meta = SEO_META[key] || SEO_META["/"];
+    const url = absolute(pathname);
+    const og = OG_IMAGES[key] || OG_IMAGES["/"];
+    const image = absolute(og.url);
+    const ogSize = manifest[og.key];
 
     document.title = meta.title;
     setMeta("name", "description", meta.description);
     setMeta("property", "og:title", meta.title);
     setMeta("property", "og:description", meta.description);
     setMeta("property", "og:url", url);
+    setMeta("property", "og:image", image);
+    setMeta("property", "og:image:width", String(ogSize?.w || 1400));
+    setMeta("property", "og:image:height", String(ogSize?.h || 933));
+    setMeta("property", "og:type", "website");
     setMeta("name", "twitter:title", meta.title);
     setMeta("name", "twitter:description", meta.description);
+    setMeta("name", "twitter:image", image);
+    setMeta("name", "twitter:card", "summary_large_image");
     setCanonical(url);
+
+    setSchema(
+      buildSchema({
+        pathname: key,
+        title: meta.title,
+        description: meta.description,
+        imageUrl: image,
+        reviews,
+        galleryImages: galleryThumbs.map((url) => absolute(url)),
+      })
+    );
   }, [pathname]);
 }

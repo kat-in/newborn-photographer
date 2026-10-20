@@ -36,11 +36,11 @@ export default function NavBar() {
       </button>
       <ul className={"nav_bar" + (open ? " open" : "")} id="site-nav">
         <li><NavLink to="/" end onClick={() => setOpen(false)}>Главная</NavLink></li>
-        <li><NavLink to="/gallery" onClick={() => setOpen(false)}>Галерея</NavLink></li>
-        <li><NavLink to="/about" onClick={() => setOpen(false)}>Обо мне</NavLink></li>
-        <li><NavLink to="/pricing" onClick={() => setOpen(false)}>Пакеты услуг</NavLink></li>
-        <li><NavLink to="/reviews" onClick={() => setOpen(false)}>Отзывы</NavLink></li>
-        <li><NavLink to="/contacts" onClick={() => setOpen(false)}>Контакты</NavLink></li>
+        <li><NavLink to="/gallery/" onClick={() => setOpen(false)}>Галерея</NavLink></li>
+        <li><NavLink to="/about/" onClick={() => setOpen(false)}>Обо мне</NavLink></li>
+        <li><NavLink to="/pricing/" onClick={() => setOpen(false)}>Пакеты услуг</NavLink></li>
+        <li><NavLink to="/reviews/" onClick={() => setOpen(false)}>Отзывы</NavLink></li>
+        <li><NavLink to="/contacts/" onClick={() => setOpen(false)}>Контакты</NavLink></li>
       </ul>
     </div>
   )

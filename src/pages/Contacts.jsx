@@ -1,10 +1,20 @@
-import hero from "../data/images/007.jpg";
+import { Link } from "react-router";
+import hero from "../assets/gallery/007.webp";
+import manifest from "../assets/manifest.json";
 
 export default function Contacts() {
   return (
     <main className="page-section contacts">
       <h1 className="sr-only">Контакты — фотограф новорожденных Екатерина Крюкова, Краснодар</h1>
-      <img className="contacts-hero reveal" src={hero} alt="Фотография новорожденного — пример работы" />
+      <img
+        className="contacts-hero reveal"
+        src={hero}
+        alt="Фотография новорожденного — пример работ фотографа"
+        width={manifest["gallery/007.webp"]?.w}
+        height={manifest["gallery/007.webp"]?.h}
+        fetchPriority="high"
+        decoding="async"
+      />
       <p className="contacts-title reveal">Спасибо за проявленный интерес к моему творчеству!</p>
       <p className="reveal">Свяжитесь со мной удобным для вас способом:</p>
       <div className="contacts-buttons reveal">
@@ -50,6 +60,25 @@ export default function Contacts() {
         </a>
       </div>
       <p className="contacts-title reveal">С радостью стану первым фотографом вашего малыша!</p>
+
+      <div className="contacts-text reveal">
+        <h2>Как записаться на фотосессию новорожденного</h2>
+        <p>
+          Я&nbsp;занимаюсь фотосессиями новорожденных в&nbsp;Краснодаре. Съемки проходят в&nbsp;моей специализированной
+          студии для новорожденных и&nbsp;малышей до&nbsp;года. Лучший возраст малыша для фотосессии&nbsp;— 5–14&nbsp;дней.
+        </p>
+        <p>
+          Запись ведется по&nbsp;предоплате 2000&nbsp;рублей, которые в&nbsp;дальнейшем входят в&nbsp;стоимость съемки.
+          Идеально сделать фотосессию в&nbsp;первые две недели после родов, пока малыш спит спокойно и&nbsp;легко
+          переносит позы. Подробнее о&nbsp;том, как проходит съемка,&nbsp;— на&nbsp;странице
+          {" "}<Link to="/pricing/">пакетов услуг</Link>, примеры работ&nbsp;— в&nbsp;<Link to="/gallery/">галерее</Link>.
+        </p>
+        <p>
+          Звонки и&nbsp;сообщения принимаю ежедневно с&nbsp;9:00 до&nbsp;21:00 по&nbsp;московскому времени.
+          На&nbsp;связь можно выбрать удобный мессенджер&nbsp;— я&nbsp;отвечаю быстро и&nbsp;подробно расскажу
+          о&nbsp;датах и&nbsp;подготовке к&nbsp;съемке.
+        </p>
+      </div>
     </main>
   );
 }

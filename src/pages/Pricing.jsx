@@ -1,16 +1,33 @@
-import hero from "../data/images/113.jpg";
-import malysh from "../data/images/114.jpg";
-import standart from "../data/images/115.jpg";
-import komfort from "../data/images/116.jpg";
+import hero from "../assets/gallery/113.webp";
+import malysh from "../assets/gallery/114.webp";
+import standart from "../assets/gallery/115.webp";
+import komfort from "../assets/gallery/116.webp";
+import manifest from "../assets/manifest.json";
 
 export default function Pricing() {
     return (
         <main className="page-section pricing">
-            <img className="pricing-hero reveal" src={hero} alt="Стоимость фотосессии новорожденных" />
+            <img
+                className="pricing-hero reveal"
+                src={hero}
+                alt="Фотосессия новорожденного — пример работы из галереи"
+                width={manifest["gallery/113.webp"]?.w}
+                height={manifest["gallery/113.webp"]?.h}
+                fetchPriority="high"
+                decoding="async"
+            />
             <h1 className="reveal">Стоимость фотосессии новорожденных</h1>
             <div className="pricing-grid">
                 <section className="pricing-card reveal">
-                    <img className="pricing-card-img" src={malysh} alt="Пакет Малыш" />
+                    <img
+                        className="pricing-card-img"
+                        src={malysh}
+                        alt="Пакет Малыш — фотосессия новорожденного"
+                        width={manifest["gallery/114.webp"]?.w}
+                        height={manifest["gallery/114.webp"]?.h}
+                        loading="lazy"
+                        decoding="async"
+                    />
                     <h2>Малыш</h2>
                     <ul className="pricing-list">
                         <li>15 обработанных фотографий</li>
@@ -24,7 +41,15 @@ export default function Pricing() {
                     <p className="pricing-price">17 000 руб</p>
                 </section>
                 <section className="pricing-card reveal">
-                    <img className="pricing-card-img" src={standart} alt="Пакет Стандарт" />
+                    <img
+                        className="pricing-card-img"
+                        src={standart}
+                        alt="Пакет Стандарт — фотосессия новорожденного"
+                        width={manifest["gallery/115.webp"]?.w}
+                        height={manifest["gallery/115.webp"]?.h}
+                        loading="lazy"
+                        decoding="async"
+                    />
                     <h2>Стандарт</h2>
                     <ul className="pricing-list">
                         <li>20 обработанных фотографий</li>
@@ -43,7 +68,15 @@ export default function Pricing() {
                     <p className="pricing-price">25 000 руб</p>
                 </section>
                 <section className="pricing-card reveal">
-                    <img className="pricing-card-img" src={komfort} alt="Пакет Комфорт" />
+                    <img
+                        className="pricing-card-img"
+                        src={komfort}
+                        alt="Пакет Комфорт — фотосессия новорожденного"
+                        width={manifest["gallery/116.webp"]?.w}
+                        height={manifest["gallery/116.webp"]?.h}
+                        loading="lazy"
+                        decoding="async"
+                    />
                     <h2>Комфорт</h2>
                     <ul className="pricing-list">
                         <li>30 обработанных фотографий</li>

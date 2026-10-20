@@ -1,23 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import slide01 from "../data/home/slide01.jpg";
-import slide02 from "../data/home/slide02.jpg";
-import slide03 from "../data/home/slide03.jpg";
-import slide04 from "../data/home/slide04.jpg";
-import slide05 from "../data/home/slide05.jpg";
-import slide06 from "../data/home/slide06.jpg";
-import slide07 from "../data/home/slide07.jpg";
-import slide08 from "../data/home/slide08.jpg";
-import slide09 from "../data/home/slide09.jpg";
-import slide10 from "../data/home/slide10.jpg";
-import slide11 from "../data/home/slide11.jpg";
-import slide12 from "../data/home/slide12.jpg";
-import slide13 from "../data/home/slide13.jpg";
-import intro from "../data/home/intro.jpg";
-import work from "../data/home/work.jpg";
-import deliver from "../data/home/deliver.jpg";
-import before from "../data/home/before.jpg";
-import after from "../data/home/after.jpg";
-import videoPoster from "../data/home/video-poster.jpg";
+import { Link } from "react-router";
+import slide01 from "../assets/home/slide01.webp";
+import slide02 from "../assets/home/slide02.webp";
+import slide03 from "../assets/home/slide03.webp";
+import slide04 from "../assets/home/slide04.webp";
+import slide05 from "../assets/home/slide05.webp";
+import slide06 from "../assets/home/slide06.webp";
+import slide07 from "../assets/home/slide07.webp";
+import slide08 from "../assets/home/slide08.webp";
+import slide09 from "../assets/home/slide09.webp";
+import slide10 from "../assets/home/slide10.webp";
+import slide11 from "../assets/home/slide11.webp";
+import slide12 from "../assets/home/slide12.webp";
+import slide13 from "../assets/home/slide13.webp";
+import intro from "../assets/home/intro.webp";
+import work from "../assets/home/work.webp";
+import deliver from "../assets/home/deliver.webp";
+import before from "../assets/home/before.webp";
+import after from "../assets/home/after.webp";
+import videoPoster from "../assets/home/video-poster.webp";
+import manifest from "../assets/manifest.json";
 
 const SLIDE_ALT = "Фотограф новорожденных Краснодар — Екатерина Крюкова";
 
@@ -173,11 +175,21 @@ function Slider() {
           transition: !ready || noTr ? "none" : "transform 0.4s ease",
         }}
       >
-        {TRACK.map((src, i) => (
-          <div className="slide" key={`${src}-${i}`}>
-            <img src={src} alt={SLIDE_ALTS[i % SLIDES.length]} />
-          </div>
-        ))}
+        {TRACK.map((src, i) => {
+          const m = manifest[`home/slide${String((i % SLIDES.length) + 1).padStart(2, "0")}.webp`];
+          return (
+            <div className="slide" key={`${src}-${i}`}>
+              <img
+                src={src}
+                alt={SLIDE_ALTS[i % SLIDES.length]}
+                width={m?.w}
+                height={m?.h}
+                decoding="async"
+                fetchPriority={i === SLIDES.length ? "high" : "auto"}
+              />
+            </div>
+          );
+        })}
       </div>
       <div className="controls" onPointerLeave={onZoneLeave} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
         <div
@@ -270,8 +282,24 @@ function Comparer() {
 
   return (
     <div className="comparison" ref={ref} onPointerDown={onDown} style={{ "--pos": `${pos}%` }}>
-      <img src={after} alt="Фотография после обработки" />
-      <div className="before"><img src={before} alt="Фотография до обработки" /></div>
+      <img
+        src={after}
+        alt="Фотография новорожденного после авторской обработки"
+        width={manifest["home/after.webp"]?.w}
+        height={manifest["home/after.webp"]?.h}
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="before">
+        <img
+          src={before}
+          alt="Фотография новорожденного до авторской обработки"
+          width={manifest["home/before.webp"]?.w}
+          height={manifest["home/before.webp"]?.h}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
       <div className="drag" />
     </div>
   );
@@ -293,14 +321,14 @@ function Questions() {
     <div className="questions">
       {QUESTIONS.map((q, i) => (
         <div className={`accord${open.has(i) ? " open" : ""}`} key={q.t}>
-          <h4 className="a-title" onClick={() => toggle(i)}>
+          <h3 className="a-title" onClick={() => toggle(i)}>
             {q.t}
             <span className="a-plus">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
               </svg>
             </span>
-          </h4>
+          </h3>
           <div className="a-answer">
             <div className="a-inner">{q.a}</div>
           </div>
@@ -329,7 +357,14 @@ function VkVideo() {
   return (
     <div className="video">
       <div className="overlay" onClick={() => setPlay(true)}>
-        <img src={videoPoster} alt="Видео о фотокнигах" />
+        <img
+          src={videoPoster}
+          alt="Видео о фотокнигах для новорожденных"
+          width={manifest["home/video-poster.webp"]?.w}
+          height={manifest["home/video-poster.webp"]?.h}
+          loading="lazy"
+          decoding="async"
+        />
         <span className="play">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="#1e1e1e">
             <path d="M8 5v14l11-7z" />
@@ -371,13 +406,21 @@ export default function Home() {
       <div className="home-box">
         <div className="row">
           <div className="col-6">
-            <h3><b>Привет, я&nbsp;Екатерина&nbsp;</b></h3>
-            <h3>&nbsp;— фотограф новорожденных в&nbsp;Краснодаре.</h3>
+            <h2 className="sec-title"><b>Привет, я&nbsp;Екатерина&nbsp;</b></h2>
+            <h2 className="sec-title">&nbsp;— фотограф новорожденных в&nbsp;Краснодаре.</h2>
             <p className="home-lead">Если вы&nbsp;оказались на&nbsp;моем сайте, наверняка вы&nbsp;хотите сохранить память о&nbsp;первых днях жизни крошечного человечка. Фотосессия newborn&nbsp;— отличный подарок на&nbsp;рождение ребенка.</p>
+            <p>Посмотрите <Link to="/gallery/">галерею моих работ</Link> и&nbsp;узнайте <Link to="/pricing/">стоимость фотосессии</Link> новорожденного в&nbsp;Краснодаре.</p>
           </div>
           <div className="col-6">
             <div className="pic -round">
-              <img src={intro} alt="Фотограф новорожденных Крюкова Екатерина" />
+              <img
+                src={intro}
+                alt="Екатерина Крюкова — фотограф новорожденных в Краснодаре"
+                width={manifest["home/intro.webp"]?.w}
+                height={manifest["home/intro.webp"]?.h}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
@@ -387,11 +430,18 @@ export default function Home() {
         <div className="row">
           <div className="col-6">
             <div className="pic">
-              <img src={work} alt="Частный роддом Краснодар" />
+              <img
+                src={work}
+                alt="Съемка новорожденного в специализированной студии фотографа в Краснодаре"
+                width={manifest["home/work.webp"]?.w}
+                height={manifest["home/work.webp"]?.h}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
           <div className="col-6">
-            <h3>Как я&nbsp;работаю</h3>
+            <h2 className="sec-title">Как я&nbsp;работаю</h2>
             <p>Все что вам понадобится для фотосессии&nbsp;новорожденного&nbsp;— это малыш и&nbsp;соска.&nbsp;</p>
             <h3>ПРЕДВАРИТЕЛЬНАЯ ЗАПИСЬ:</h3>
             <ul>
@@ -415,7 +465,7 @@ export default function Home() {
       <div className="home-box">
         <div className="row">
           <div className="col-6">
-            <h3>Как я&nbsp;отдаю фотографии</h3>
+            <h2 className="sec-title">Как я&nbsp;отдаю фотографии</h2>
             <p>&nbsp;</p>
             <ul>
               <li>Через неделю после съемки я&nbsp;пришлю ссылку со&nbsp;всеми удачными кадрами в&nbsp;минимальной цветокоррекции. Из&nbsp;этих кадров вы&nbsp;можете&nbsp;<b>самостоятельно выбрать фотографии&nbsp;</b>для авторской обработки.&nbsp;</li>
@@ -428,7 +478,14 @@ export default function Home() {
           </div>
           <div className="col-6">
             <div className="pic">
-              <img src={deliver} alt="Фотосессия новорожденного фотокнига" />
+              <img
+                src={deliver}
+                alt="Фотокнига с фотографиями новорожденного — результат фотосессии"
+                width={manifest["home/deliver.webp"]?.w}
+                height={manifest["home/deliver.webp"]?.h}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
@@ -440,7 +497,7 @@ export default function Home() {
             <Comparer />
           </div>
           <div className="col-4">
-            <h3>Детальная обработка</h3>
+            <h2 className="sec-title">Детальная обработка</h2>
             <p>У&nbsp;новорожденных малышей редко бывает идеальная кожа.</p>
             <p>Покраснения, шелушинки, царапинки, желтушка, даже зеленый пупок&nbsp;— все это часто встречается, но&nbsp;совершенно не&nbsp;мешает провести съемку.&nbsp;</p>
             <p>После обработки кожа малыша будет ровной и&nbsp;гладкой, все дефекты будут отретушированы.</p>
@@ -481,6 +538,29 @@ export default function Home() {
             <div className="tail">
               <p>Я&nbsp;приношу радость молодым родителям, сохраняя в&nbsp;виде фотографий уникальные моменты первых дней жизни малышей<i>.</i></p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="home-box">
+        <div className="row -top">
+          <div className="col-8 col-lg-8-offset-2">
+            <h2>Запись на фотосессию новорожденного в Краснодаре</h2>
+            <p>
+              Я&nbsp;занимаюсь фотосессиями новорожденных (newborn) в&nbsp;Краснодаре и&nbsp;Краснодарском крае больше 10&nbsp;лет.
+              Съемки проходят в&nbsp;моей специализированной студии для новорожденных: с&nbsp;отдельной зоной ухода,
+              комфортной температурой и&nbsp;профессиональным светом. Оптимальный возраст малыша для съемки&nbsp;— 5–14&nbsp;дней.
+            </p>
+            <p>
+              В&nbsp;пакет входят фотосессия, профессиональная ретушь и&nbsp;печать фотокниги. Узнать актуальные цены
+              можно на&nbsp;странице <Link to="/pricing/">пакетов услуг</Link>, а&nbsp;посмотреть примеры работ&nbsp;— в&nbsp;<Link to="/gallery/">галерее</Link>.
+              Мои отзывы&nbsp;— на&nbsp;странице <Link to="/reviews/">отзывов клиентов</Link>.
+            </p>
+            <p>
+              <Link to="/contacts/" className="home-cta">
+                Записаться на фотосессию
+              </Link>
+            </p>
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
+import { Link } from "react-router";
 import data from "../data/reviews/reviews.json";
+import manifest from "../assets/manifest.json";
 
 const avatars = Object.entries(
-  import.meta.glob("../data/reviews/av*.jpg", { eager: true, import: "default" })
+  import.meta.glob("../assets/reviews/av*.webp", { eager: true, import: "default" })
 ).reduce((acc, [path, url]) => {
-  acc[parseInt(path.match(/av(\d+)\.jpg/)[1])] = url;
+  acc[parseInt(path.match(/av(\d+)\.webp/)[1])] = url;
   return acc;
 }, {});
 
@@ -20,7 +22,14 @@ function Comment({ review }) {
   return (
     <article className="comment reveal">
       <div className="comment-avatar">
-        {num ? <img src={avatars[num]} alt={ALT} loading="lazy" /> : <div className="comment-letter">{review.letter}</div>}
+        {num ? <img
+            src={avatars[num]}
+            alt={ALT}
+            width={manifest[`reviews/av${String(num).padStart(2, "0")}.webp`]?.w}
+            height={manifest[`reviews/av${String(num).padStart(2, "0")}.webp`]?.h}
+            loading="lazy"
+            decoding="async"
+          /> : <div className="comment-letter">{review.letter}</div>}
       </div>
       <div className="comment-content">
         <h3>{review.name}</h3>
@@ -36,6 +45,14 @@ export default function Reviews() {
   return (
     <main className="reviews">
       <h1 className="sr-only">Отзывы клиентов о фотосессии новорожденных</h1>
+      <div className="reviews-intro reveal">
+        <h2>Отзывы о фотосессии новорожденного</h2>
+        <p>
+          Ниже&nbsp;— отзывы родителей, которые доверили мне съемку своих малышей в&nbsp;Краснодаре.
+          Посмотрите <Link to="/gallery/">примеры работ</Link> и&nbsp;<Link to="/pricing/">пакеты услуг</Link>,
+          чтобы выбрать формат съемки. Записаться можно на&nbsp;странице <Link to="/contacts/">контактов</Link>.
+        </p>
+      </div>
       <div className="comments-list">
         {data.map((review, i) => (
           <Comment key={i} review={review} />
