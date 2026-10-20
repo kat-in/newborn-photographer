@@ -112,11 +112,27 @@ function Slider() {
     }
   }, []);
 
-  const onPointerUp = useCallback((e) => {
-    if (e.pointerType === "touch") {
-      onZoneLeave();
-    }
-  }, [onZoneLeave]);
+  // Нажатие откликается сразу, дальше листает в ту же сторону с обычной паузой.
+  const onPress = useCallback(
+    (zone) => {
+      const dir = zone === "prev" ? -1 : 1;
+      dirRef.current = dir;
+      modeRef.current = "hover";
+      delayRef.current = HOVER_DELAY;
+      go(dir);
+      rearmRef.current?.(HOVER_DELAY);
+    },
+    [go]
+  );
+
+  const onPointerUp = useCallback(
+    (e) => {
+      if (e.pointerType === "touch") {
+        onZoneLeave();
+      }
+    },
+    [onZoneLeave]
+  );
 
   useEffect(() => {
     const el = stripRef.current;
@@ -194,14 +210,14 @@ function Slider() {
         <div
           className="prev"
           onPointerEnter={() => onZoneEnter("prev")}
-          onPointerDown={() => onZoneEnter("prev")}
+          onPointerDown={() => onPress("prev")}
         >
           <div className="handler"><Chevron dir="left" /></div>
         </div>
         <div
           className="next"
           onPointerEnter={() => onZoneEnter("next")}
-          onPointerDown={() => onZoneEnter("next")}
+          onPointerDown={() => onPress("next")}
         >
           <div className="handler"><Chevron dir="right" /></div>
         </div>
