@@ -10,9 +10,7 @@ const DIST = path.join(ROOT, "dist");
 const CHROME =
   process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-const { ROUTES, SEO_META, SITE, absolute } = await import(
-  path.join(ROOT, "src/seo-meta.mjs")
-);
+const { ROUTES, SEO_META, absolute } = await import(path.join(ROOT, "src/seo-meta.mjs"));
 
 const MIME = {
   ".html": "text/html; charset=utf-8",

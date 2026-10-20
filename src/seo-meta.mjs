@@ -1,4 +1,6 @@
-export const SITE = "https://kryukovaphoto.ru.website.yandexcloud.net";
+import { SITE_URL } from "../site.config.mjs";
+
+export const SITE = SITE_URL;
 
 export const ROUTES = [
   { path: "/", priority: "1.0", changefreq: "weekly" },

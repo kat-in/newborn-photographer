@@ -31,6 +31,7 @@ npm run preview          # локальный просмотр собранно�
 | `src/seo.js` | хук `useSEO()`: обновляет meta, canonical, og:image и JSON-LD при навигации |
 | `scripts/optimize-images.mjs` | ресайз + webp + миниатюры для галереи (sharp) |
 | `scripts/prerender.mjs` | статический HTML для каждого маршрута + sitemap.xml + robots.txt + 404.html |
+| `site.config.mjs` | адрес сайта — единственное место, которое надо менять при смене домена |
 | `scripts/generate-icons.mjs` | favicon.ico, apple-touch-icon.png, иконки PWA, og-image.png |
 
 ## Адреса страниц
@@ -48,14 +49,14 @@ npm run preview          # локальный просмотр собранно�
 2. Залить **только `dist/`** на хостинг.
 3. В корне баккета должны лежать `index.html`, `sitemap.xml`, `robots.txt`, `404.html`
    и папки `gallery/`, `pricing/`, `about/`, `reviews/`, `contacts/` с `index.html` внутри.
-4. Проверить, что всё отдаётся правильно:
+4. Проверить, что подстраницы отдаются как статические файлы:
 
    ```bash
-   SITE=https://ваш-домен node scripts/check-deploy.mjs
+   curl -sI https://ваш-домен/gallery/ | head -3
    ```
 
-   Скрипт покажет статус каждого адреса, наличие нужного контента, canonical,
-   количество URL в sitemap и статус несуществующего адреса.
+   Должно быть `HTTP/2 200` и `content-type: text/html`.
+   Если `404` — хостинг не умеет отдавать `папка/index.html` (см. ниже).
 
 5. Если хостинг умеет «страницу ошибки» — указать `/404.html`, иначе неизвестные
    адреса отдадут 200 (soft 404).
