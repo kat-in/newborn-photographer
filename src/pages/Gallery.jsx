@@ -36,7 +36,7 @@ export default function Gallery() {
 
   return (
     <main className="page-section">
-      <h1 className="sr-only">Галерея</h1>
+      <h1 className="sr-only">Галерея работ — фотосессии новорожденных в Краснодаре</h1>
       <div className="gallery-grid reveal">
         {images.map((src, i) => (
           <img

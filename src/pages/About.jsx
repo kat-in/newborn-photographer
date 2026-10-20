@@ -4,11 +4,10 @@ import masterclass from "../data/about/masterclass.jpg";
 import awardLeft from "../data/about/award-left.jpg";
 import awardRight from "../data/about/award-right.jpg";
 
-const ALT = "Фотограф новорожденных в Краснодаре - Крюкова Екатерина. Фотограф новорожденных Краснодар — Екатерина Крюкова";
-
 export default function About() {
   return (
     <main className="about">
+      <h1 className="sr-only">Обо мне — фотограф новорожденных Екатерина Крюкова, Краснодар</h1>
       <div className="about-block reveal">
         <div className="about-row">
           <div className="about-col -half">
@@ -16,7 +15,7 @@ export default function About() {
             <p>Фотографией я&nbsp;занимаюсь уже больше 10 лет, но&nbsp;после рождения третьего ребенка, я&nbsp;окончательно поняла, что больше всего люблю фотографировать новорожденных малышей. С&nbsp;тех пор я&nbsp;активно развиваюсь в&nbsp;этом направлении.</p>
           </div>
           <div className="about-col -half">
-            <img src={intro} alt={ALT} />
+            <img src={intro} alt="Фотограф новорожденных Екатерина Крюкова" />
           </div>
         </div>
       </div>
@@ -24,7 +23,7 @@ export default function About() {
       <div className="about-block reveal">
         <div className="about-row">
           <div className="about-col -third">
-            <img src={education} alt={ALT} />
+            <img src={education} alt="Диплом фотографа новорожденных после курса обучения" />
           </div>
           <div className="about-col -two-thirds">
             <p>
@@ -52,7 +51,7 @@ export default function About() {
             <p>На мастерклассе Насти Филлиповой узнала много новых хитростей, влюбилась в идеальные позировки малышей и всегда к ним стремлюсь 🥰</p>
           </div>
           <div className="about-col -two-thirds">
-            <img src={masterclass} alt={ALT} />
+            <img src={masterclass} alt="На мастерклассе по позированию новорожденных" />
           </div>
         </div>
       </div>
@@ -60,14 +59,14 @@ export default function About() {
       <div className="about-block reveal">
         <div className="about-row">
           <div className="about-col -third">
-            <img src={awardLeft} alt={ALT} />
+            <img src={awardLeft} alt="Награда за лучшую съемку новорожденных" />
           </div>
           <div className="about-col -third about-center">
-            <h1>Best newborn photographer</h1>
+            <h2>Best newborn photographer</h2>
             <p>Вошла в топ ньюборн фотографов в известном <a href="https://35awards.com/page/contests/num/722/photographers/">фотоконкурсе</a>&nbsp;35awards.com.</p>
           </div>
           <div className="about-col -third">
-            <img src={awardRight} alt={ALT} />
+            <img src={awardRight} alt="Диплом фотоконкурса 35awards" />
           </div>
         </div>
       </div>

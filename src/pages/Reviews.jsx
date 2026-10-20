@@ -7,7 +7,7 @@ const avatars = Object.entries(
   return acc;
 }, {});
 
-const ALT = "Отзывы фотограф новорожденных Краснодар — Екатерина Крюкова. Фотограф новорожденных Краснодар — Екатерина Крюкова";
+const ALT = "Фото клиента — отзыв о фотосессии";
 
 function Comment({ review }) {
   const paragraphs = review.text
@@ -35,7 +35,7 @@ function Comment({ review }) {
 export default function Reviews() {
   return (
     <main className="reviews">
-      <h1 className="sr-only">Отзывы</h1>
+      <h1 className="sr-only">Отзывы клиентов о фотосессии новорожденных</h1>
       <div className="comments-list">
         {data.map((review, i) => (
           <Comment key={i} review={review} />

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kryukovaphoto.ru.website.yandexcloud.net/sitemap.xml

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router";
+import { useSEO } from "./seo";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,6 +14,7 @@ import Reviews from "./pages/Reviews";
 
 function App() {
   const location = useLocation();
+  useSEO();
 
   useEffect(() => {
     const prevent = (e) => {

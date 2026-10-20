@@ -41,6 +41,9 @@ const SLIDE_ALTS = [
 
 const TRACK = [...SLIDES, ...SLIDES, ...SLIDES];
 
+const SLIDE_DELAY = 5000;
+const HOVER_DELAY = 3500;
+
 const Chevron = ({ dir }) => (
   <svg
     width="24"
@@ -62,8 +65,10 @@ const Chevron = ({ dir }) => (
 function Slider() {
   const stripRef = useRef(null);
   const indexRef = useRef(SLIDES.length);
-  const autoTimer = useRef(null);
-  const hoverTimer = useRef(null);
+  const timerRef = useRef(null);
+  const dirRef = useRef(1);
+  const delayRef = useRef(SLIDE_DELAY);
+  const modeRef = useRef("auto");
   const [index, setIndex] = useState(SLIDES.length);
   const [stripW, setStripW] = useState(0);
   const [stripH, setStripH] = useState(0);
@@ -86,21 +91,31 @@ function Slider() {
     }
   }, []);
 
-  const startAuto = useCallback(() => {
-    clearInterval(autoTimer.current);
-    autoTimer.current = setInterval(() => go(1), 6000);
-  }, [go]);
+  const rearmRef = useRef(null);
 
-  const onHover = useCallback((dir) => {
-    clearInterval(autoTimer.current);
-    clearInterval(hoverTimer.current);
-    hoverTimer.current = setInterval(() => go(dir), 500);
-  }, [go]);
+  const onZoneEnter = useCallback((zone) => {
+    dirRef.current = zone === "prev" ? -1 : 1;
+    if (modeRef.current !== "hover") {
+      modeRef.current = "hover";
+      delayRef.current = HOVER_DELAY;
+      rearmRef.current?.(HOVER_DELAY);
+    }
+  }, []);
 
-  const onLeave = useCallback(() => {
-    clearInterval(hoverTimer.current);
-    startAuto();
-  }, [startAuto]);
+  const onZoneLeave = useCallback(() => {
+    dirRef.current = 1;
+    if (modeRef.current !== "auto") {
+      modeRef.current = "auto";
+      delayRef.current = SLIDE_DELAY;
+      rearmRef.current?.(SLIDE_DELAY);
+    }
+  }, []);
+
+  const onPointerUp = useCallback((e) => {
+    if (e.pointerType === "touch") {
+      onZoneLeave();
+    }
+  }, [onZoneLeave]);
 
   useEffect(() => {
     const el = stripRef.current;
@@ -120,16 +135,25 @@ function Slider() {
       applyMobile();
       raf2 = requestAnimationFrame(() => setReady(true));
     });
-    startAuto();
+    const step = () => {
+      go(dirRef.current);
+      timerRef.current = setTimeout(step, delayRef.current);
+    };
+    const rearm = (delay) => {
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(step, delay);
+    };
+    rearmRef.current = rearm;
+    rearm(SLIDE_DELAY);
     return () => {
       ro.disconnect();
       mq.removeEventListener?.("change", applyMobile);
       cancelAnimationFrame(raf1);
       cancelAnimationFrame(raf2);
-      clearInterval(autoTimer.current);
-      clearInterval(hoverTimer.current);
+      clearTimeout(timerRef.current);
+      rearmRef.current = null;
     };
-  }, [startAuto]);
+  }, [go]);
 
   const slideW = mobile ? stripW : Math.round(stripH * (2000 / 1333));
   const peek = mobile ? 0 : Math.max(0, Math.round((stripW - slideW) / 2));
@@ -155,11 +179,19 @@ function Slider() {
           </div>
         ))}
       </div>
-      <div className="controls">
-        <div className="prev" onMouseEnter={() => onHover(-1)} onMouseLeave={onLeave}>
+      <div className="controls" onPointerLeave={onZoneLeave} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+        <div
+          className="prev"
+          onPointerEnter={() => onZoneEnter("prev")}
+          onPointerDown={() => onZoneEnter("prev")}
+        >
           <div className="handler"><Chevron dir="left" /></div>
         </div>
-        <div className="next" onMouseEnter={() => onHover(1)} onMouseLeave={onLeave}>
+        <div
+          className="next"
+          onPointerEnter={() => onZoneEnter("next")}
+          onPointerDown={() => onZoneEnter("next")}
+        >
           <div className="handler"><Chevron dir="right" /></div>
         </div>
       </div>
@@ -332,7 +364,7 @@ export default function Home() {
 
   return (
     <main className="home">
-      <h1 className="sr-only">{SLIDE_ALT}</h1>
+      <h1 className="sr-only">Фотограф новорожденных в Краснодаре — Екатерина Крюкова</h1>
 
       <Slider />
 
@@ -341,7 +373,7 @@ export default function Home() {
           <div className="col-6">
             <h3><b>Привет, я&nbsp;Екатерина&nbsp;</b></h3>
             <h3>&nbsp;— фотограф новорожденных в&nbsp;Краснодаре.</h3>
-            <h1>Если вы&nbsp;оказались на&nbsp;моем сайте, наверняка вы&nbsp;хотите сохранить память о&nbsp;первых днях жизни крошечного человечка. Фотосессия newborn&nbsp;— отличный подарок на&nbsp;рождение ребенка.</h1>
+            <p className="home-lead">Если вы&nbsp;оказались на&nbsp;моем сайте, наверняка вы&nbsp;хотите сохранить память о&nbsp;первых днях жизни крошечного человечка. Фотосессия newborn&nbsp;— отличный подарок на&nbsp;рождение ребенка.</p>
           </div>
           <div className="col-6">
             <div className="pic -round">

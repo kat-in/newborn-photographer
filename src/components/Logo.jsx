@@ -6,7 +6,7 @@ export default function Logo() {
     return (
         <Link to="/" key={pathname}>
             <div className="logo logo-in">
-                <img className="logo_img" src="/src/data/logo.png" alt="kryukovaphoto.ru" />
+                <img className="logo_img" src="/logo.png" alt="kryukovaphoto.ru" />
             </div>
         </Link>
     )
